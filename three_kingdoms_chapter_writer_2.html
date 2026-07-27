@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เครื่องมือแต่งตอน — ตั๋งเหลียง</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap');
+
+:root{
+  --ink: #14110f;
+  --ink-2: #1c1815;
+  --parchment: #e9e0cc;
+  --parchment-dim: #b8ab8c;
+  --vermillion: #9a2f2f;
+  --vermillion-bright: #c1483f;
+  --gold: #b8945a;
+  --jade: #3f5d51;
+  --line: rgba(184,148,90,0.22);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(154,47,47,0.12), transparent 45%),
+    radial-gradient(ellipse at 90% 110%, rgba(63,93,81,0.10), transparent 50%),
+    var(--ink);
+  color:var(--parchment);
+  font-family:'Noto Sans Thai','Noto Serif Thai',sans-serif;
+  padding:28px 16px 60px;
+}
+
+.wrap{max-width:860px;margin:0 auto;}
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-bottom:8px;
+}
+.seal{
+  flex:none;
+  width:52px;height:52px;
+  border-radius:6px;
+  background:linear-gradient(160deg,var(--vermillion-bright),var(--vermillion) 70%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif SC',serif;
+  font-size:26px;
+  color:#f2e2c8;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.4), 0 6px 14px rgba(154,47,47,0.35);
+  transform:rotate(-3deg);
+}
+.title-block h1{
+  font-family:'Noto Serif Thai',serif;
+  font-weight:700;
+  font-size:1.5rem;
+  margin:0 0 2px;
+  color:var(--parchment);
+  letter-spacing:.02em;
+}
+.title-block p{
+  margin:0;
+  font-size:.82rem;
+  color:var(--parchment-dim);
+  letter-spacing:.05em;
+}
+
+.rule{
+  height:1px;
+  margin:22px 0 26px;
+  background:linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent);
+  opacity:.5;
+}
+
+.field{
+  margin-bottom:22px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));
+  padding:16px 18px 14px;
+  position:relative;
+}
+.field-label{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:10px;
+}
+.field-label .zh{
+  font-family:'Noto Serif SC',serif;
+  color:var(--gold);
+  font-size:.95rem;
+  margin-right:8px;
+  opacity:.85;
+}
+.field-label .th{
+  font-family:'Noto Serif Thai',serif;
+  font-weight:600;
+  font-size:1.02rem;
+  color:var(--parchment);
+}
+.field-label .count{
+  font-size:.72rem;
+  color:var(--parchment-dim);
+  font-variant-numeric: tabular-nums;
+}
+textarea{
+  width:100%;
+  min-height:130px;
+  resize:vertical;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--parchment);
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:.95rem;
+  line-height:1.65;
+}
+textarea::placeholder{color:rgba(184,171,140,0.45);}
+
+.key-field input[type="password"]{
+  width:100%;
+  background:rgba(0,0,0,0.25);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:10px 12px;
+  color:var(--parchment);
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:.88rem;
+  outline:none;
+}
+.key-field input[type="password"]:focus{border-color:var(--gold);}
+.key-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:10px;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.remember{
+  font-size:.78rem;
+  color:var(--parchment-dim);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+#modelName{
+  background:transparent;
+  border:1px solid var(--line);
+  border-radius:6px;
+  color:var(--parchment-dim);
+  font-size:.76rem;
+  padding:6px 10px;
+  outline:none;
+  width:180px;
+}
+#modelName:focus{border-color:var(--gold); color:var(--parchment);}
+
+.actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:6px;
+}
+
+.gen-btn{
+  position:relative;
+  border:none;
+  cursor:pointer;
+  padding:13px 30px;
+  border-radius:999px;
+  font-family:'Noto Serif Thai',serif;
+  font-weight:600;
+  font-size:.98rem;
+  color:#f2e2c8;
+  background:linear-gradient(160deg,var(--vermillion-bright),var(--vermillion));
+  box-shadow:0 0 0 1px rgba(0,0,0,0.35), 0 8px 18px rgba(154,47,47,0.3);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.gen-btn:hover{transform:translateY(-1px); box-shadow:0 0 0 1px rgba(0,0,0,0.35), 0 12px 22px rgba(154,47,47,0.4);}
+.gen-btn:disabled{opacity:.55; cursor:default; transform:none;}
+
+.hint{
+  font-size:.78rem;
+  color:var(--parchment-dim);
+}
+
+.output{
+  margin-top:30px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:22px 24px;
+  background:rgba(255,255,255,0.02);
+  display:none;
+}
+.output.show{display:block;}
+.output-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+.output-head h2{
+  font-family:'Noto Serif Thai',serif;
+  font-size:1.05rem;
+  color:var(--gold);
+  margin:0;
+}
+.copy-btn{
+  background:none;
+  border:1px solid var(--line);
+  color:var(--parchment-dim);
+  font-size:.75rem;
+  padding:6px 12px;
+  border-radius:999px;
+  cursor:pointer;
+  font-family:'Noto Sans Thai',sans-serif;
+}
+.copy-btn:hover{color:var(--parchment); border-color:var(--gold);}
+.story-text{
+  white-space:pre-wrap;
+  font-family:'Noto Serif Thai',serif;
+  font-size:1rem;
+  line-height:1.9;
+  color:var(--parchment);
+}
+
+.loading{
+  display:none;
+  align-items:center;
+  gap:10px;
+  font-size:.82rem;
+  color:var(--parchment-dim);
+}
+.loading.show{display:flex;}
+.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  animation:pulse 1.2s infinite ease-in-out;
+}
+.dot:nth-child(2){animation-delay:.15s;}
+.dot:nth-child(3){animation-delay:.3s;}
+@keyframes pulse{0%,80%,100%{opacity:.25;transform:scale(.85);}40%{opacity:1;transform:scale(1);}}
+
+.err{
+  display:none;
+  margin-top:14px;
+  color:#e0958f;
+  font-size:.82rem;
+  border-left:2px solid var(--vermillion-bright);
+  padding-left:10px;
+}
+.err.show{display:block;}
+
+.footer-note{
+  margin-top:34px;
+  font-size:.74rem;
+  color:var(--parchment-dim);
+  line-height:1.7;
+  border-top:1px solid var(--line);
+  padding-top:16px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="seal">董</div>
+    <div class="title-block">
+      <h1>เครื่องมือแต่งตอน — สามก๊ก รีเบิร์น</h1>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="field key-field">
+    <div class="field-label">
+      <div><span class="zh">鑰匙</span><span class="th">Gemini API Key</span></div>
+    </div>
+    <input type="password" id="apiKey" placeholder="วางคีย์จาก Google AI Studio ที่นี่ (aistudio.google.com/apikey)">
+    <div class="key-row">
+      <label class="remember"><input type="checkbox" id="rememberKey"> จำคีย์ไว้ในเบราว์เซอร์นี้</label>
+      <input type="text" id="modelName" value="gemini-3.6-flash" spellcheck="false">
+    </div>
+    <div class="hint" style="margin-top:6px;">คีย์นี้เก็บอยู่ในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งไปที่ไหนนอกจาก Google โดยตรง</div>
+  </div>
+
+  <div class="field">
+    <div class="field-label">
+      <div><span class="zh">情節</span><span class="th">โครงเรื่องตอนนี้ (Chapter Plot)</span></div>
+      <div class="count"><span id="c1">0</span>/50000</div>
+    </div>
+    <textarea id="plot" maxlength="50000" placeholder="เช่น เหอจิ้นเรียกตั๋งโต๊ะเข้าเมืองหลวง ตั๋งเหลียงต้องตัดสินใจว่าจะเตือนใครบางคนล่วงหน้าหรือไม่..."></textarea>
+  </div>
+
+  <div class="field">
+    <div class="field-label">
+      <div><span class="zh">前情</span><span class="th">สรุปตอนก่อนหน้า (Previous Chapter Summary)</span></div>
+      <div class="count"><span id="c2">0</span>/50000</div>
+    </div>
+    <textarea id="summary" maxlength="50000" placeholder="สรุปเหตุการณ์สำคัญ ความสัมพันธ์ระหว่างตัวละคร และสถานะทางอารมณ์ของตัวเอกจากตอนที่แล้ว..."></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="gen-btn" id="genBtn">แต่งตอนต่อไป</button>
+    <div class="loading" id="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span> กำลังร่างตอน...</div>
+    <div class="hint">ไม่บังคับกรอกทั้งสองช่อง แต่ยิ่งให้บริบทมาก ยิ่งต่อเนื่องกับตอนเดิม</div>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="output" id="output">
+    <div class="output-head">
+      <h2>ตอนที่ร่างไว้</h2>
+      <button class="copy-btn" id="copyBtn">คัดลอก</button>
+    </div>
+    <div class="story-text" id="storyText"></div>
+  </div>
+
+
+</div>
+
+<script>
+const plotEl = document.getElementById('plot');
+const summaryEl = document.getElementById('summary');
+const c1 = document.getElementById('c1');
+const c2 = document.getElementById('c2');
+plotEl.addEventListener('input', () => c1.textContent = plotEl.value.length);
+summaryEl.addEventListener('input', () => c2.textContent = summaryEl.value.length);
+
+const genBtn = document.getElementById('genBtn');
+const loading = document.getElementById('loading');
+const output = document.getElementById('output');
+const storyText = document.getElementById('storyText');
+const errBox = document.getElementById('err');
+const copyBtn = document.getElementById('copyBtn');
+
+const SYSTEM_PROMPT = `คุณเป็นนักเขียนนิยายมืออาชีพ ช่วยแต่งนิยายจีนย้อนยุคแนวข้ามภพ/เกิดใหม่ (rebirth) โดยตัวเอกชื่อ ตั๋งเหลียง (董亮) เกิดในปี ค.ศ. 177 เป็นบุตรของตั๋งอ๋วน (董旻 น้องชายของตั๋งโต๊ะ) แต่ถูกตั๋งโต๊ะรับมาเลี้ยงเป็นบุตรบุญธรรม/ทายาทสืบสกุลตั้งแต่ยังเล็ก เพราะตั๋งโต๊ะไม่มีบุตรชาย ตัวเอกเติบโตกึ่งกลางระหว่างค่ายทหารชายแดนหลงซีกับการศึกษาแบบราชสำนัก
+
+แนวเรื่อง: ดราม่าประวัติศาสตร์ผสมการเมืองและการทหารในยุคสามก๊ก
+โทน: ไม่หม่นหมองจนเกินไป มีอารมณ์ครบรส (ตื่นเต้น ขบขัน ซาบซึ้ง เศร้า ผูกพัน) ฉากรุนแรงต้องตามด้วยฉากพักใจเสมอ
+มุมมอง: บุคคลที่สามแบบจำกัด โฟกัสความคิดและอารมณ์ภายในของตั๋งเหลียง
+สไตล์ประโยค: กระชับในฉากแอ็กชัน/การเมือง ประโยคยาวขึ้นและมีภาพพจน์ในฉากอารมณ์ แทรกคำศัพท์จีนโบราณเล็กน้อยเพื่อบรรยากาศ
+กลุ่มเป้าหมาย: ผู้อ่านผู้ใหญ่ เนื้อหาสามารถมีความรุนแรงทางการเมือง การทรยศหักหลัง หรือประเด็นผู้ใหญ่ได้ตามความเหมาะสมของเนื้อเรื่อง แต่ไม่ใช่ความรุนแรงหรือเนื้อหาทางเพศแบบโจ่งแจ้งเพื่อความโจ่งแจ้ง ทุกฉากต้องรับใช้เนื้อเรื่องหรือพัฒนาตัวละคร
+
+จงแต่งตอนต่อไปเป็นภาษาไทย โดยอิงจากโครงเรื่องและสรุปตอนก่อนหน้าที่ผู้ใช้ให้มา รักษาความต่อเนื่องของชื่อตัวละคร ความสัมพันธ์ และเหตุการณ์ประวัติศาสตร์ ตอบเป็นเนื้อเรื่องล้วนๆ ไม่ต้องมีคำนำหรือคำอธิบายกำกับ`;
+
+const apiKeyEl = document.getElementById('apiKey');
+const rememberEl = document.getElementById('rememberKey');
+const modelEl = document.getElementById('modelName');
+
+// Restore a remembered key, if any (best-effort — some browsers/hosts block storage)
+try{
+  const saved = localStorage.getItem('gemini_novel_key');
+  if(saved){ apiKeyEl.value = saved; rememberEl.checked = true; }
+}catch(e){ /* storage unavailable — ignore, key just won't persist */ }
+
+rememberEl.addEventListener('change', () => {
+  try{
+    if(rememberEl.checked && apiKeyEl.value.trim()){
+      localStorage.setItem('gemini_novel_key', apiKeyEl.value.trim());
+    } else {
+      localStorage.removeItem('gemini_novel_key');
+    }
+  }catch(e){}
+});
+
+genBtn.addEventListener('click', async () => {
+  const key = apiKeyEl.value.trim();
+  const model = modelEl.value.trim() || 'gemini-3.6-flash';
+  const plot = plotEl.value.trim();
+  const summary = summaryEl.value.trim();
+
+  if(!key){
+    showErr('กรุณาใส่ Gemini API Key ก่อน (ขอได้ฟรีที่ aistudio.google.com/apikey)');
+    return;
+  }
+  if(!plot && !summary){
+    showErr('กรุณากรอกโครงเรื่องตอนนี้ หรือสรุปตอนก่อนหน้าอย่างน้อยหนึ่งช่อง');
+    return;
+  }
+  hideErr();
+
+  if(rememberEl.checked){
+    try{ localStorage.setItem('gemini_novel_key', key); }catch(e){}
+  }
+
+  const userMsg = `สรุปตอนก่อนหน้า:\n${summary || '(ยังไม่มี — นี่คือตอนแรก)'}\n\nโครงเรื่องตอนนี้ที่ต้องการให้แต่ง:\n${plot || '(ผู้ใช้ไม่ได้ระบุ ให้ต่อเนื้อเรื่องอย่างสมเหตุสมผลจากสรุปตอนก่อนหน้า)'}`;
+
+  genBtn.disabled = true;
+  loading.classList.add('show');
+  output.classList.remove('show');
+
+  try{
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-goog-api-key': key
+      },
+      body: JSON.stringify({
+        systemInstruction: { parts:[{ text: SYSTEM_PROMPT }] },
+        contents: [{ role:'user', parts:[{ text: userMsg }] }]
+      })
+    });
+    const data = await res.json();
+    if(data.error){
+      showErr(`ข้อผิดพลาดจาก Gemini: ${data.error.message || 'ไม่ทราบสาเหตุ'}`);
+      return;
+    }
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const text = parts.map(p => p.text || '').join('\n').trim();
+    if(!text){
+      showErr('ไม่ได้รับเนื้อหากลับมา ลองใหม่อีกครั้ง');
+    } else {
+      storyText.textContent = text;
+      output.classList.add('show');
+    }
+  }catch(e){
+    showErr('เกิดข้อผิดพลาดในการเชื่อมต่อ ตรวจสอบคีย์และการเชื่อมต่ออินเทอร์เน็ต');
+  }finally{
+    genBtn.disabled = false;
+    loading.classList.remove('show');
+  }
+});
+
+copyBtn.addEventListener('click', () => {
+  navigator.clipboard.writeText(storyText.textContent).then(() => {
+    copyBtn.textContent = 'คัดลอกแล้ว';
+    setTimeout(() => copyBtn.textContent = 'คัดลอก', 1500);
+  });
+});
+
+function showErr(msg){ errBox.textContent = msg; errBox.classList.add('show'); }
+function hideErr(){ errBox.classList.remove('show'); }
+</script>
+</body>
+</html>
