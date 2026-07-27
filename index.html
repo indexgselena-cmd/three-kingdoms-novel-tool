@@ -158,6 +158,78 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
 }
 #modelName:focus{border-color:var(--gold); color:var(--parchment);}
 
+.settings-field .field-label{
+  align-items:center;
+}
+.lock-btn{
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--gold);
+  font-size:.72rem;
+  padding:6px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-family:'Noto Sans Thai',sans-serif;
+  white-space:nowrap;
+}
+.lock-btn:hover{background:rgba(184,148,90,0.1);}
+.lock-btn.locked{
+  border-color:var(--jade);
+  color:var(--parchment-dim);
+}
+.settings-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px 16px;
+}
+.s-item{grid-column: span 1;}
+.s-item.full{grid-column: 1 / -1;}
+.s-item label{
+  display:block;
+  font-size:.74rem;
+  color:var(--parchment-dim);
+  margin-bottom:5px;
+  letter-spacing:.02em;
+}
+.s-item textarea{
+  min-height:64px;
+  width:100%;
+  background:rgba(0,0,0,0.2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:9px 10px;
+  color:var(--parchment);
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:.85rem;
+  line-height:1.5;
+  resize:vertical;
+}
+.s-item input[type="text"],
+.s-item input[type="number"],
+.s-item select{
+  width:100%;
+  background:rgba(0,0,0,0.2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:9px 10px;
+  color:var(--parchment);
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:.85rem;
+  outline:none;
+}
+.s-item input:focus,
+.s-item select:focus,
+.s-item textarea:focus{border-color:var(--gold);}
+.s-item input:disabled,
+.s-item select:disabled,
+.s-item textarea:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+@media (max-width:560px){
+  .settings-grid{grid-template-columns:1fr;}
+}
+
 .actions{
   display:flex;
   align-items:center;
@@ -288,6 +360,45 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
     <div class="hint" style="margin-top:6px;">คีย์นี้เก็บอยู่ในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งไปที่ไหนนอกจาก Google โดยตรง</div>
   </div>
 
+  <div class="field settings-field" id="settingsField">
+    <div class="field-label">
+      <div><span class="zh">設定</span><span class="th">การตั้งค่าเรื่อง (ตั้งครั้งเดียว ล็อกไว้)</span></div>
+      <button class="lock-btn" id="lockBtn">บันทึกและล็อก</button>
+    </div>
+
+    <div class="settings-grid">
+      <div class="s-item full">
+        <label>Characters — ตัวละครหลักที่ต้องคงความสม่ำเสมอตลอดเรื่อง</label>
+        <textarea id="setChars" placeholder="เช่น ตั๋งเหลียง - ตัวเอก, ตั๋งโต๊ะ - ลุง/ผู้เลี้ยงดู, ตั๋งอ๋วน - บิดา, หลี่หรู - ที่ปรึกษา, ลิโป้ - พี่บุญธรรม">ตั๋งเหลียง (董亮) - ตัวเอก, ตั๋งโต๊ะ (董卓) - ลุง/ผู้เลี้ยงดู, ตั๋งอ๋วน (董旻) - บิดาแท้ๆ, หลี่หรู (李儒) - ที่ปรึกษาตระกูล, ลิโป้ (呂布) - พี่บุญธรรม</textarea>
+      </div>
+      <div class="s-item">
+        <label>Story Length — จำนวนคำเป้าหมายต่อหนึ่งตอน</label>
+        <input type="number" id="setLength" value="1500" min="300" step="100">
+      </div>
+      <div class="s-item">
+        <label>Genre — แนวเรื่องตายตัวทั้งเล่ม</label>
+        <input type="text" id="setGenre" value="ดราม่าประวัติศาสตร์-การเมือง-การทหาร ยุคสามก๊ก">
+      </div>
+      <div class="s-item">
+        <label>Theme — ธีมหลักที่ทุกตอนต้องคลี่คลายไปสู่</label>
+        <input type="text" id="setTheme" placeholder="เช่น ชะตากรรมกับทางเลือก / ความกตัญญูกับความถูกต้อง">
+      </div>
+      <div class="s-item">
+        <label>Point of View — มุมมองการเล่าเรื่องตายตัว</label>
+        <select id="setPov">
+          <option value="บุคคลที่หนึ่ง">บุคคลที่หนึ่ง (First person)</option>
+          <option value="บุคคลที่สามแบบจำกัด" selected>บุคคลที่สามแบบจำกัด (Third limited)</option>
+          <option value="บุคคลที่สามแบบรอบรู้">บุคคลที่สามแบบรอบรู้ (Third omniscient)</option>
+        </select>
+      </div>
+      <div class="s-item">
+        <label>Dialogue Balance — สัดส่วนบทสนทนาต่อการบรรยาย (%)</label>
+        <input type="number" id="setDialogue" value="40" min="0" max="100">
+      </div>
+    </div>
+    <div class="hint" id="settingsHint" style="margin-top:12px;">กรอกครั้งเดียวแล้วกด "บันทึกและล็อก" — ค่าพวกนี้จะถูกยึดถือทุกครั้งที่แต่งตอน ไม่ว่าจะผ่านไปกี่ตอนก็ตาม เพื่อป้องกัน AI หลงลืมกฎของเรื่อง (แก้ไขภายหลังได้ผ่านปุ่มปลดล็อก แต่ไม่แนะนำให้เปลี่ยนกลางเรื่อง)</div>
+  </div>
+
   <div class="field">
     <div class="field-label">
       <div><span class="zh">情節</span><span class="th">โครงเรื่องตอนนี้ (Chapter Plot)</span></div>
@@ -338,15 +449,69 @@ const storyText = document.getElementById('storyText');
 const errBox = document.getElementById('err');
 const copyBtn = document.getElementById('copyBtn');
 
-const SYSTEM_PROMPT = `คุณเป็นนักเขียนนิยายมืออาชีพ ช่วยแต่งนิยายจีนย้อนยุคแนวข้ามภพ/เกิดใหม่ (rebirth) โดยตัวเอกชื่อ ตั๋งเหลียง (董亮) เกิดในปี ค.ศ. 177 เป็นบุตรของตั๋งอ๋วน (董旻 น้องชายของตั๋งโต๊ะ) แต่ถูกตั๋งโต๊ะรับมาเลี้ยงเป็นบุตรบุญธรรม/ทายาทสืบสกุลตั้งแต่ยังเล็ก เพราะตั๋งโต๊ะไม่มีบุตรชาย ตัวเอกเติบโตกึ่งกลางระหว่างค่ายทหารชายแดนหลงซีกับการศึกษาแบบราชสำนัก
+const BASE_LORE = `คุณเป็นนักเขียนนิยายมืออาชีพ ช่วยแต่งนิยายจีนย้อนยุคแนวข้ามภพ/เกิดใหม่ (rebirth) โดยตัวเอกชื่อ ตั๋งเหลียง (董亮) เกิดในปี ค.ศ. 177 เป็นบุตรของตั๋งอ๋วน (董旻 น้องชายของตั๋งโต๊ะ) แต่ถูกตั๋งโต๊ะรับมาเลี้ยงเป็นบุตรบุญธรรม/ทายาทสืบสกุลตั้งแต่ยังเล็ก เพราะตั๋งโต๊ะไม่มีบุตรชาย ตัวเอกเติบโตกึ่งกลางระหว่างค่ายทหารชายแดนหลงซีกับการศึกษาแบบราชสำนัก
 
-แนวเรื่อง: ดราม่าประวัติศาสตร์ผสมการเมืองและการทหารในยุคสามก๊ก
 โทน: ไม่หม่นหมองจนเกินไป มีอารมณ์ครบรส (ตื่นเต้น ขบขัน ซาบซึ้ง เศร้า ผูกพัน) ฉากรุนแรงต้องตามด้วยฉากพักใจเสมอ
-มุมมอง: บุคคลที่สามแบบจำกัด โฟกัสความคิดและอารมณ์ภายในของตั๋งเหลียง
 สไตล์ประโยค: กระชับในฉากแอ็กชัน/การเมือง ประโยคยาวขึ้นและมีภาพพจน์ในฉากอารมณ์ แทรกคำศัพท์จีนโบราณเล็กน้อยเพื่อบรรยากาศ
-กลุ่มเป้าหมาย: ผู้อ่านผู้ใหญ่ เนื้อหาสามารถมีความรุนแรงทางการเมือง การทรยศหักหลัง หรือประเด็นผู้ใหญ่ได้ตามความเหมาะสมของเนื้อเรื่อง แต่ไม่ใช่ความรุนแรงหรือเนื้อหาทางเพศแบบโจ่งแจ้งเพื่อความโจ่งแจ้ง ทุกฉากต้องรับใช้เนื้อเรื่องหรือพัฒนาตัวละคร
+กลุ่มเป้าหมาย: ผู้อ่านผู้ใหญ่ เนื้อหาสามารถมีความรุนแรงทางการเมือง การทรยศหักหลัง หรือประเด็นผู้ใหญ่ได้ตามความเหมาะสมของเนื้อเรื่อง แต่ไม่ใช่ความรุนแรงหรือเนื้อหาทางเพศแบบโจ่งแจ้งเพื่อความโจ่งแจ้ง ทุกฉากต้องรับใช้เนื้อเรื่องหรือพัฒนาตัวละคร`;
 
-จงแต่งตอนต่อไปเป็นภาษาไทย โดยอิงจากโครงเรื่องและสรุปตอนก่อนหน้าที่ผู้ใช้ให้มา รักษาความต่อเนื่องของชื่อตัวละคร ความสัมพันธ์ และเหตุการณ์ประวัติศาสตร์ ตอบเป็นเนื้อเรื่องล้วนๆ ไม่ต้องมีคำนำหรือคำอธิบายกำกับ`;
+function buildSystemPrompt(){
+  const chars = document.getElementById('setChars').value.trim();
+  const length = document.getElementById('setLength').value.trim() || '1500';
+  const genre = document.getElementById('setGenre').value.trim();
+  const theme = document.getElementById('setTheme').value.trim();
+  const pov = document.getElementById('setPov').value;
+  const dialogue = document.getElementById('setDialogue').value.trim() || '40';
+
+  return `${BASE_LORE}
+
+ต่อไปนี้คือ "การตั้งค่าตายตัวของทั้งเรื่อง" ต้องยึดถือทุกครั้งที่แต่งเนื้อหา ไม่ว่าจะผ่านไปกี่ตอนแล้วก็ตาม ห้ามเปลี่ยนแปลงเองแม้ผู้ใช้จะไม่ได้เตือนซ้ำในคำสั่งแต่ละครั้ง:
+
+- Characters (ตัวละครหลักที่ต้องคงชื่อ บุคลิก และความสัมพันธ์ให้สม่ำเสมอ): ${chars || 'ไม่ได้ระบุ — คงตามที่ปรากฏในสรุปตอนก่อนหน้า'}
+- Story Length (ความยาวเป้าหมายของตอนนี้): แต่งให้ยาวประมาณ ${length} คำ ไม่สั้นหรือยาวเกินไปจากนี้มาก
+- Genre (แนวเรื่องตายตัวทั้งเล่ม): ${genre || 'ดราม่าประวัติศาสตร์จีนยุคสามก๊ก'}
+- Theme (ธีมหลักที่ทุกตอนควรคลี่คลายไปสู่): ${theme || 'ไม่ได้ระบุ — ใช้ดุลยพินิจให้สอดคล้องกับโครงเรื่องที่ได้รับ'}
+- Point of View (มุมมองการเล่าเรื่องตายตัว): ${pov} — ห้ามสลับมุมมองระหว่างตอน
+- Dialogue Balance (สัดส่วนบทสนทนา): ประมาณ ${dialogue}% ของเนื้อหาในตอนควรเป็นบทสนทนาระหว่างตัวละคร ส่วนที่เหลือเป็นการบรรยาย/ความคิดภายใน
+
+จงแต่งตอนต่อไปเป็นภาษาไทย โดยอิงจากโครงเรื่องและสรุปตอนก่อนหน้าที่ผู้ใช้ให้มาด้านล่าง รักษาความต่อเนื่องของชื่อตัวละคร ความสัมพันธ์ และเหตุการณ์ประวัติศาสตร์ ตอบเป็นเนื้อเรื่องล้วนๆ ไม่ต้องมีคำนำหรือคำอธิบายกำกับ`;
+}
+
+// ---- Story settings: persist + lock ----
+const settingsIds = ['setChars','setLength','setGenre','setTheme','setPov','setDialogue'];
+const lockBtn = document.getElementById('lockBtn');
+const settingsHint = document.getElementById('settingsHint');
+
+function setSettingsDisabled(disabled){
+  settingsIds.forEach(id => document.getElementById(id).disabled = disabled);
+  lockBtn.textContent = disabled ? 'ปลดล็อกเพื่อแก้ไข' : 'บันทึกและล็อก';
+  lockBtn.classList.toggle('locked', disabled);
+}
+
+try{
+  const savedSettings = JSON.parse(localStorage.getItem('novel_story_settings') || 'null');
+  if(savedSettings){
+    settingsIds.forEach(id => { if(savedSettings[id] !== undefined) document.getElementById(id).value = savedSettings[id]; });
+  }
+  const savedLocked = localStorage.getItem('novel_story_settings_locked') === '1';
+  if(savedLocked) setSettingsDisabled(true);
+}catch(e){ /* storage unavailable — settings just won't persist */ }
+
+lockBtn.addEventListener('click', () => {
+  const isLocked = lockBtn.classList.contains('locked');
+  if(isLocked){
+    setSettingsDisabled(false);
+    try{ localStorage.setItem('novel_story_settings_locked', '0'); }catch(e){}
+  } else {
+    const values = {};
+    settingsIds.forEach(id => values[id] = document.getElementById(id).value);
+    try{
+      localStorage.setItem('novel_story_settings', JSON.stringify(values));
+      localStorage.setItem('novel_story_settings_locked', '1');
+    }catch(e){}
+    setSettingsDisabled(true);
+  }
+});
 
 const apiKeyEl = document.getElementById('apiKey');
 const rememberEl = document.getElementById('rememberKey');
@@ -402,7 +567,7 @@ genBtn.addEventListener('click', async () => {
         'x-goog-api-key': key
       },
       body: JSON.stringify({
-        systemInstruction: { parts:[{ text: SYSTEM_PROMPT }] },
+        systemInstruction: { parts:[{ text: buildSystemPrompt() }] },
         contents: [{ role:'user', parts:[{ text: userMsg }] }]
       })
     });
