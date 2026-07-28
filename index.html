@@ -230,6 +230,46 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
   .settings-grid{grid-template-columns:1fr;}
 }
 
+.memory-field .field-label{align-items:center;}
+.memory-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px 16px;
+}
+.m-item label{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:.74rem;
+  color:var(--parchment-dim);
+  margin-bottom:5px;
+  letter-spacing:.02em;
+}
+.m-item textarea{
+  min-height:78px;
+  width:100%;
+  background:rgba(0,0,0,0.2);
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:9px 10px;
+  color:var(--parchment);
+  font-family:'Noto Sans Thai',sans-serif;
+  font-size:.85rem;
+  line-height:1.5;
+  resize:vertical;
+}
+.m-item textarea:focus{border-color:var(--jade);}
+.save-indicator{
+  font-size:.7rem;
+  color:var(--jade);
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.save-indicator.show{opacity:1;}
+@media (max-width:560px){
+  .memory-grid{grid-template-columns:1fr;}
+}
+
 .actions{
   display:flex;
   align-items:center;
@@ -399,20 +439,57 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
     <div class="hint" id="settingsHint" style="margin-top:12px;">กรอกครั้งเดียวแล้วกด "บันทึกและล็อก" — ค่าพวกนี้จะถูกยึดถือทุกครั้งที่แต่งตอน ไม่ว่าจะผ่านไปกี่ตอนก็ตาม เพื่อป้องกัน AI หลงลืมกฎของเรื่อง (แก้ไขภายหลังได้ผ่านปุ่มปลดล็อก แต่ไม่แนะนำให้เปลี่ยนกลางเรื่อง)</div>
   </div>
 
+  <div class="field memory-field" id="memoryField">
+    <div class="field-label">
+      <div><span class="zh">記憶</span><span class="th">Story Memory — สถานะโลกปัจจุบัน (แก้ไขเองได้ทุกครั้ง)</span></div>
+      <span class="save-indicator" id="memSaveIndicator">บันทึกแล้ว ✓</span>
+    </div>
+    <div class="memory-grid">
+      <div class="m-item">
+        <label>Characters — ตัวละครที่ปรากฏตัว ณ ตอนนี้ + สถานะ</label>
+        <textarea id="memChars" placeholder="เช่น ตั๋งเหลียง อายุ 18 อยู่ลั่วหยาง, ตั๋งโต๊ะ ผู้สำเร็จราชการ, ลิโป้ พี่บุญธรรม"></textarea>
+      </div>
+      <div class="m-item">
+        <label>Relationships — ความสัมพันธ์ระหว่างตัวละครล่าสุด</label>
+        <textarea id="memRelations" placeholder="เช่น ลิโป้ไว้ใจตั๋งเหลียงมาก, หลี่หรูเริ่มระแวงตั๋งเหลียง"></textarea>
+      </div>
+      <div class="m-item">
+        <label>Politics — สถานการณ์การเมืองล่าสุด</label>
+        <textarea id="memPolitics" placeholder="เช่น ตั๋งโต๊ะควบคุมราชสำนัก, ฮั่นเสี้ยนตี้ยังเป็นฮ่องเต้"></textarea>
+      </div>
+      <div class="m-item">
+        <label>Military — กำลังพล/สถานการณ์ทางทหารล่าสุด</label>
+        <textarea id="memMilitary" placeholder="เช่น กองทัพซีเหลียง 28,000 นาย ประจำการที่ลั่วหยาง"></textarea>
+      </div>
+      <div class="m-item">
+        <label>Objectives — เป้าหมายที่ตัวละครกำลังไล่ล่าอยู่</label>
+        <textarea id="memObjectives" placeholder="เช่น เตรียมย้ายเมืองหลวงไปฉางอาน"></textarea>
+      </div>
+      <div class="m-item">
+        <label>Secrets — ความลับที่ผู้อ่าน/ตัวละครบางคนรู้อยู่</label>
+        <textarea id="memSecrets" placeholder="เช่น ตัวเอกรู้เหตุการณ์อนาคตล่วงหน้า"></textarea>
+      </div>
+    </div>
+    <div class="hint" style="margin-top:10px;">แก้ไขได้ทุกครั้งก่อนแต่งตอนใหม่ ระบบจะบันทึกอัตโนมัติในเบราว์เซอร์นี้ และส่งให้ AI อ่านทุกครั้งเพื่อไม่ให้หลงลืมสถานะล่าสุดของเรื่อง</div>
+  </div>
+
+  <div class="field">
+    <div class="field-label">
+      <div><span class="zh">前情</span><span class="th">สรุปตอนก่อนหน้า (Previous Chapter Summary)</span></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="save-indicator" id="summaryAutoNote">AI สรุปให้อัตโนมัติ ✓ (แก้ไขได้)</span>
+        <div class="count"><span id="c2">0</span>/50000</div>
+      </div>
+    </div>
+    <textarea id="summary" maxlength="50000" placeholder="สรุปเหตุการณ์สำคัญ ความสัมพันธ์ระหว่างตัวละคร และสถานะทางอารมณ์ของตัวเอกจากตอนที่แล้ว..."></textarea>
+  </div>
+
   <div class="field">
     <div class="field-label">
       <div><span class="zh">情節</span><span class="th">โครงเรื่องตอนนี้ (Chapter Plot)</span></div>
       <div class="count"><span id="c1">0</span>/50000</div>
     </div>
     <textarea id="plot" maxlength="50000" placeholder="เช่น เหอจิ้นเรียกตั๋งโต๊ะเข้าเมืองหลวง ตั๋งเหลียงต้องตัดสินใจว่าจะเตือนใครบางคนล่วงหน้าหรือไม่..."></textarea>
-  </div>
-
-  <div class="field">
-    <div class="field-label">
-      <div><span class="zh">前情</span><span class="th">สรุปตอนก่อนหน้า (Previous Chapter Summary)</span></div>
-      <div class="count"><span id="c2">0</span>/50000</div>
-    </div>
-    <textarea id="summary" maxlength="50000" placeholder="สรุปเหตุการณ์สำคัญ ความสัมพันธ์ระหว่างตัวละคร และสถานะทางอารมณ์ของตัวเอกจากตอนที่แล้ว..."></textarea>
   </div>
 
   <div class="actions">
@@ -439,8 +516,12 @@ const plotEl = document.getElementById('plot');
 const summaryEl = document.getElementById('summary');
 const c1 = document.getElementById('c1');
 const c2 = document.getElementById('c2');
+const summaryAutoNote = document.getElementById('summaryAutoNote');
 plotEl.addEventListener('input', () => c1.textContent = plotEl.value.length);
-summaryEl.addEventListener('input', () => c2.textContent = summaryEl.value.length);
+summaryEl.addEventListener('input', () => {
+  c2.textContent = summaryEl.value.length;
+  summaryAutoNote.classList.remove('show');
+});
 
 const genBtn = document.getElementById('genBtn');
 const loading = document.getElementById('loading');
@@ -474,7 +555,13 @@ function buildSystemPrompt(){
 - Point of View (มุมมองการเล่าเรื่องตายตัว): ${pov} — ห้ามสลับมุมมองระหว่างตอน
 - Dialogue Balance (สัดส่วนบทสนทนา): ประมาณ ${dialogue}% ของเนื้อหาในตอนควรเป็นบทสนทนาระหว่างตัวละคร ส่วนที่เหลือเป็นการบรรยาย/ความคิดภายใน
 
-จงแต่งตอนต่อไปเป็นภาษาไทย โดยอิงจากโครงเรื่องและสรุปตอนก่อนหน้าที่ผู้ใช้ให้มาด้านล่าง รักษาความต่อเนื่องของชื่อตัวละคร ความสัมพันธ์ และเหตุการณ์ประวัติศาสตร์ ตอบเป็นเนื้อเรื่องล้วนๆ ไม่ต้องมีคำนำหรือคำอธิบายกำกับ`;
+ผู้ใช้จะให้ "Story Memory" มาด้วย ซึ่งคือสถานะล่าสุดของโลกในเรื่อง (ตัวละคร ความสัมพันธ์ การเมือง การทหาร เป้าหมาย ความลับ) ณ ตอนก่อนตอนนี้จะเริ่ม ให้ถือว่าข้อมูลนี้เป็นความจริงล่าสุดที่สุด และเขียนตอนใหม่ให้สอดคล้องกับสถานะนั้น ไม่ขัดแย้งกัน
+
+จงแต่งตอนต่อไปเป็นภาษาไทย โดยอิงจาก Story Memory โครงเรื่อง และสรุปตอนก่อนหน้าที่ผู้ใช้ให้มาด้านล่าง รักษาความต่อเนื่องของชื่อตัวละคร ความสัมพันธ์ และเหตุการณ์ประวัติศาสตร์ ตอบเป็นเนื้อเรื่องล้วนๆ ไม่ต้องมีคำนำหรือคำอธิบายกำกับ
+
+สำคัญมาก — หลังจากแต่งเนื้อเรื่องจบแล้ว ให้ขึ้นบรรทัดใหม่แล้วพิมพ์บรรทัดคั่นตรงตามนี้เป๊ะๆ (ห้ามเปลี่ยนแปลงรูปแบบ):
+===สรุป===
+จากนั้นตามด้วยสรุปเนื้อเรื่องของตอนนี้เป็นภาษาไทย ยาวประมาณ 150-300 คำ ครอบคลุมเหตุการณ์สำคัญ การเปลี่ยนแปลงความสัมพันธ์ และสถานะทางอารมณ์ของตัวเอกที่เพิ่งเกิดขึ้น เพื่อให้ใช้เป็นบริบทของตอนถัดไป ห้ามลืมส่วนนี้เด็ดขาด แม้ผู้ใช้จะไม่ได้เตือนซ้ำ`;
 }
 
 // ---- Story settings: persist + lock ----
@@ -533,6 +620,50 @@ rememberEl.addEventListener('change', () => {
   }catch(e){}
 });
 
+// ---- Story Memory: freely editable, auto-persisted ----
+const memoryIds = ['memChars','memRelations','memPolitics','memMilitary','memObjectives','memSecrets'];
+const memSaveIndicator = document.getElementById('memSaveIndicator');
+let memSaveTimer = null;
+
+try{
+  const savedMemory = JSON.parse(localStorage.getItem('novel_story_memory') || 'null');
+  if(savedMemory){
+    memoryIds.forEach(id => { if(savedMemory[id] !== undefined) document.getElementById(id).value = savedMemory[id]; });
+  }
+}catch(e){ /* storage unavailable — memory just won't persist */ }
+
+memoryIds.forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    try{
+      const values = {};
+      memoryIds.forEach(mid => values[mid] = document.getElementById(mid).value);
+      localStorage.setItem('novel_story_memory', JSON.stringify(values));
+      memSaveIndicator.classList.add('show');
+      clearTimeout(memSaveTimer);
+      memSaveTimer = setTimeout(() => memSaveIndicator.classList.remove('show'), 1200);
+    }catch(e){}
+  });
+});
+
+function buildMemoryBlock(){
+  const chars = document.getElementById('memChars').value.trim();
+  const relations = document.getElementById('memRelations').value.trim();
+  const politics = document.getElementById('memPolitics').value.trim();
+  const military = document.getElementById('memMilitary').value.trim();
+  const objectives = document.getElementById('memObjectives').value.trim();
+  const secrets = document.getElementById('memSecrets').value.trim();
+
+  const lines = [];
+  if(chars) lines.push(`Characters (สถานะตัวละคร ณ ตอนนี้): ${chars}`);
+  if(relations) lines.push(`Relationships (ความสัมพันธ์ล่าสุด): ${relations}`);
+  if(politics) lines.push(`Politics (สถานการณ์การเมืองล่าสุด): ${politics}`);
+  if(military) lines.push(`Military (สถานการณ์ทางทหารล่าสุด): ${military}`);
+  if(objectives) lines.push(`Objectives (เป้าหมายที่กำลังไล่ล่าอยู่): ${objectives}`);
+  if(secrets) lines.push(`Secrets (ความลับที่ต้องรักษาไว้ในเนื้อเรื่อง): ${secrets}`);
+
+  return lines.length ? lines.join('\n') : null;
+}
+
 genBtn.addEventListener('click', async () => {
   const key = apiKeyEl.value.trim();
   const model = modelEl.value.trim() || 'gemini-3.6-flash';
@@ -553,7 +684,7 @@ genBtn.addEventListener('click', async () => {
     try{ localStorage.setItem('gemini_novel_key', key); }catch(e){}
   }
 
-  const userMsg = `สรุปตอนก่อนหน้า:\n${summary || '(ยังไม่มี — นี่คือตอนแรก)'}\n\nโครงเรื่องตอนนี้ที่ต้องการให้แต่ง:\n${plot || '(ผู้ใช้ไม่ได้ระบุ ให้ต่อเนื้อเรื่องอย่างสมเหตุสมผลจากสรุปตอนก่อนหน้า)'}`;
+  const userMsg = `สถานะโลกล่าสุด (Story Memory):\n${buildMemoryBlock() || '(ยังไม่มีข้อมูล)'}\n\nสรุปตอนก่อนหน้า:\n${summary || '(ยังไม่มี — นี่คือตอนแรก)'}\n\nโครงเรื่องตอนนี้ที่ต้องการให้แต่ง:\n${plot || '(ผู้ใช้ไม่ได้ระบุ ให้ต่อเนื้อเรื่องอย่างสมเหตุสมผลจากสรุปตอนก่อนหน้า)'}`;
 
   genBtn.disabled = true;
   loading.classList.add('show');
@@ -577,12 +708,29 @@ genBtn.addEventListener('click', async () => {
       return;
     }
     const parts = data.candidates?.[0]?.content?.parts || [];
-    const text = parts.map(p => p.text || '').join('\n').trim();
-    if(!text){
+    const rawText = parts.map(p => p.text || '').join('\n').trim();
+    if(!rawText){
       showErr('ไม่ได้รับเนื้อหากลับมา ลองใหม่อีกครั้ง');
     } else {
-      storyText.textContent = text;
+      const marker = '===สรุป===';
+      const markerIdx = rawText.indexOf(marker);
+      let chapterText, autoSummary;
+      if(markerIdx !== -1){
+        chapterText = rawText.slice(0, markerIdx).trim();
+        autoSummary = rawText.slice(markerIdx + marker.length).trim();
+      } else {
+        chapterText = rawText;
+        autoSummary = null;
+      }
+
+      storyText.textContent = chapterText;
       output.classList.add('show');
+
+      if(autoSummary){
+        summaryEl.value = autoSummary;
+        c2.textContent = summaryEl.value.length;
+        summaryAutoNote.classList.add('show');
+      }
     }
   }catch(e){
     showErr('เกิดข้อผิดพลาดในการเชื่อมต่อ ตรวจสอบคีย์และการเชื่อมต่ออินเทอร์เน็ต');
