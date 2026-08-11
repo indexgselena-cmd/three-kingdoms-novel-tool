@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>เครื่องมือแต่งตอน — สามก๊ก</title>
+<title>เครื่องมือแต่งตอน — ตั๋งเหลียง</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@400;600;700&family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap');
 
@@ -447,27 +447,27 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
     <div class="memory-grid">
       <div class="m-item">
         <label>Characters — ตัวละครที่ปรากฏตัว ณ ตอนนี้ + สถานะ</label>
-        <textarea id="memChars" placeholder="เช่น ตั๋งเหลียง อายุ 18 อยู่ลั่วหยาง, ตั๋งโต๊ะ ผู้สำเร็จราชการ, ลิโป้ พี่บุญธรรม"></textarea>
+        <textarea id="memChars" maxlength="800" placeholder="เช่น ตั๋งเหลียง อายุ 18 อยู่ลั่วหยาง, ตั๋งโต๊ะ ผู้สำเร็จราชการ, ลิโป้ พี่บุญธรรม"></textarea>
       </div>
       <div class="m-item">
         <label>Relationships — ความสัมพันธ์ระหว่างตัวละครล่าสุด</label>
-        <textarea id="memRelations" placeholder="เช่น ลิโป้ไว้ใจตั๋งเหลียงมาก, หลี่หรูเริ่มระแวงตั๋งเหลียง"></textarea>
+        <textarea id="memRelations" maxlength="800" placeholder="เช่น ลิโป้ไว้ใจตั๋งเหลียงมาก, หลี่หรูเริ่มระแวงตั๋งเหลียง"></textarea>
       </div>
       <div class="m-item">
         <label>Politics — สถานการณ์การเมืองล่าสุด</label>
-        <textarea id="memPolitics" placeholder="เช่น ตั๋งโต๊ะควบคุมราชสำนัก, ฮั่นเสี้ยนตี้ยังเป็นฮ่องเต้"></textarea>
+        <textarea id="memPolitics" maxlength="800" placeholder="เช่น ตั๋งโต๊ะควบคุมราชสำนัก, ฮั่นเสี้ยนตี้ยังเป็นฮ่องเต้"></textarea>
       </div>
       <div class="m-item">
         <label>Military — กำลังพล/สถานการณ์ทางทหารล่าสุด</label>
-        <textarea id="memMilitary" placeholder="เช่น กองทัพซีเหลียง 28,000 นาย ประจำการที่ลั่วหยาง"></textarea>
+        <textarea id="memMilitary" maxlength="800" placeholder="เช่น กองทัพซีเหลียง 28,000 นาย ประจำการที่ลั่วหยาง"></textarea>
       </div>
       <div class="m-item">
         <label>Objectives — เป้าหมายที่ตัวละครกำลังไล่ล่าอยู่</label>
-        <textarea id="memObjectives" placeholder="เช่น เตรียมย้ายเมืองหลวงไปฉางอาน"></textarea>
+        <textarea id="memObjectives" maxlength="800" placeholder="เช่น เตรียมย้ายเมืองหลวงไปฉางอาน"></textarea>
       </div>
       <div class="m-item">
         <label>Secrets — ความลับที่ผู้อ่าน/ตัวละครบางคนรู้อยู่</label>
-        <textarea id="memSecrets" placeholder="เช่น ตัวเอกรู้เหตุการณ์อนาคตล่วงหน้า"></textarea>
+        <textarea id="memSecrets" maxlength="800" placeholder="เช่น ตัวเอกรู้เหตุการณ์อนาคตล่วงหน้า"></textarea>
       </div>
     </div>
     <div class="hint" style="margin-top:10px;">แก้ไขได้ทุกครั้งก่อนแต่งตอนใหม่ ระบบจะบันทึกอัตโนมัติในเบราว์เซอร์นี้ และส่งให้ AI อ่านทุกครั้งเพื่อไม่ให้หลงลืมสถานะล่าสุดของเรื่อง</div>
@@ -478,18 +478,18 @@ textarea::placeholder{color:rgba(184,171,140,0.45);}
       <div><span class="zh">前情</span><span class="th">สรุปตอนก่อนหน้า (Previous Chapter Summary)</span></div>
       <div style="display:flex;align-items:center;gap:10px;">
         <span class="save-indicator" id="summaryAutoNote">AI สรุปให้อัตโนมัติ ✓ (แก้ไขได้)</span>
-        <div class="count"><span id="c2">0</span>/50000</div>
+        <div class="count"><span id="c2">0</span>/4000</div>
       </div>
     </div>
-    <textarea id="summary" maxlength="50000" placeholder="สรุปเหตุการณ์สำคัญ ความสัมพันธ์ระหว่างตัวละคร และสถานะทางอารมณ์ของตัวเอกจากตอนที่แล้ว..."></textarea>
+    <textarea id="summary" maxlength="4000" placeholder="สรุปเหตุการณ์สำคัญ ความสัมพันธ์ระหว่างตัวละคร และสถานะทางอารมณ์ของตัวเอกจากตอนที่แล้ว..."></textarea>
   </div>
 
   <div class="field">
     <div class="field-label">
       <div><span class="zh">情節</span><span class="th">โครงเรื่องตอนนี้ (Chapter Plot)</span></div>
-      <div class="count"><span id="c1">0</span>/50000</div>
+      <div class="count"><span id="c1">0</span>/4000</div>
     </div>
-    <textarea id="plot" maxlength="50000" placeholder="เช่น เหอจิ้นเรียกตั๋งโต๊ะเข้าเมืองหลวง ตั๋งเหลียงต้องตัดสินใจว่าจะเตือนใครบางคนล่วงหน้าหรือไม่..."></textarea>
+    <textarea id="plot" maxlength="4000" placeholder="เช่น เหอจิ้นเรียกตั๋งโต๊ะเข้าเมืองหลวง ตั๋งเหลียงต้องตัดสินใจว่าจะเตือนใครบางคนล่วงหน้าหรือไม่..."></textarea>
   </div>
 
   <div class="actions">
@@ -530,11 +530,13 @@ const storyText = document.getElementById('storyText');
 const errBox = document.getElementById('err');
 const copyBtn = document.getElementById('copyBtn');
 
-const BASE_LORE = `คุณเป็นนักเขียนนิยายมืออาชีพ ช่วยแต่งนิยายจีนย้อนยุค
+const BASE_LORE = `คุณเป็นนักเขียนนิยายมืออาชีพ ช่วยแต่งนิยายจีนย้อนยุค ที่มีฉากหลังเป็นยุคสามก๊กของจีน
 
-โทน: ไม่หม่นหมองจนเกินไป มีอารมณ์ครบรส (ตื่นเต้น ขบขัน ซาบซึ้ง เศร้า ผูกพัน)
-สไตล์ประโยค: กระชับในฉากการเมือง ประโยคยาวขึ้นและมีภาพพจน์ในฉากอารมณ์ ใช้ภาษาจีนโบราณแบบละคร (古装剧台词 / gǔzhuāng jù táicí)
-กลุ่มเป้าหมาย: ผู้อ่านผู้ใหญ่ เนื้อหาสามารถมีความรุนแรงทางการเมือง การทรยศหักหลัง หรือประเด็นผู้ใหญ่ได้ตามความเหมาะสมของเนื้อเรื่อง แต่ไม่ใช่ความรุนแรง และอาจมีเนื้อหาทางเพศ ทุกฉากต้องรับใช้เนื้อเรื่องหรือพัฒนาตัวละคร`;
+ตัวละครหลัก บทบาท และความสัมพันธ์ของแต่ละคนจะถูกระบุไว้ในส่วน "Characters" ที่ผู้ใช้ให้มาด้านล่างเสมอ ให้ยึดชื่อและบทบาทตามที่ระบุไว้ตรงนั้นเป็นความจริงหลักของเรื่อง — ตัวละครที่ถูกระบุเป็นคนแรกในรายการ หรือถูกระบุว่า "ตัวเอก" ให้ถือเป็นตัวเอกของเรื่อง เว้นแต่จะมีการระบุไว้ชัดเจนเป็นอย่างอื่น ห้ามใช้ชื่อตัวละครอื่นที่ไม่ได้ถูกระบุไว้ในรายการนี้มาแทนตัวเอก
+
+โทน: ไม่หม่นหมองจนเกินไป มีอารมณ์ครบรส (ตื่นเต้น ขบขัน ซาบซึ้ง เศร้า ผูกพัน) ฉากรุนแรงต้องตามด้วยฉากพักใจเสมอ
+สไตล์ประโยค: กระชับในฉากการเมือง ประโยคยาวขึ้นและมีภาพพจน์ในฉากอารมณ์ ใช้ภาษานิยายแปลจีนยุคใหม่
+กลุ่มเป้าหมาย: ผู้อ่านอายุ 18 ปีขึ้นไป เนื้อหาสามารถมีความรุนแรงทางการเมือง การทรยศหักหลัง หรือประเด็นผู้ใหญ่ แต่ไม่ใช่ความรุนแรง บางช่วงอาจมีเนื้อหาทางเพศแบบตรงตัว ทุกฉากต้องรับใช้เนื้อเรื่องหรือพัฒนาตัวละคร`;
 
 function buildSystemPrompt(){
   const chars = document.getElementById('setChars').value.trim();
@@ -699,7 +701,11 @@ genBtn.addEventListener('click', async () => {
       },
       body: JSON.stringify({
         systemInstruction: { parts:[{ text: buildSystemPrompt() }] },
-        contents: [{ role:'user', parts:[{ text: userMsg }] }]
+        contents: [{ role:'user', parts:[{ text: userMsg }] }],
+        generationConfig: {
+          maxOutputTokens: 8192,
+          thinkingConfig: { thinkingBudget: 512, thinkingLevel: 'low' }
+        }
       })
     });
     const data = await res.json();
@@ -707,10 +713,18 @@ genBtn.addEventListener('click', async () => {
       showErr(`ข้อผิดพลาดจาก Gemini: ${data.error.message || 'ไม่ทราบสาเหตุ'}`);
       return;
     }
-    const parts = data.candidates?.[0]?.content?.parts || [];
+    const candidate = data.candidates?.[0];
+    const parts = candidate?.content?.parts || [];
     const rawText = parts.map(p => p.text || '').join('\n').trim();
     if(!rawText){
-      showErr('ไม่ได้รับเนื้อหากลับมา ลองใหม่อีกครั้ง');
+      const reason = candidate?.finishReason;
+      if(reason === 'MAX_TOKENS'){
+        showErr('Gemini ใช้โควต้าไปกับการ "คิด" จนหมดก่อนจะเขียนตอนจริง ลองกดแต่งตอนใหม่อีกครั้ง หรือลดความยาว Story Memory/สรุปตอนก่อนหน้าให้สั้นลง');
+      } else if(reason === 'SAFETY' || reason === 'RECITATION'){
+        showErr(`Gemini ปฏิเสธคำขอนี้ (เหตุผล: ${reason}) ลองปรับเนื้อหาในโครงเรื่องให้อ่อนลงเล็กน้อยแล้วลองใหม่`);
+      } else {
+        showErr(`ไม่ได้รับเนื้อหากลับมา (finishReason: ${reason || 'ไม่ทราบ'}) ลองใหม่อีกครั้ง`);
+      }
     } else {
       const marker = '===สรุป===';
       const markerIdx = rawText.indexOf(marker);
